@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @File  : find_new_listpage_run.py
+# @File  : 2_find_new_listpage_run.py
 # @Author: Cedar
 # @Date  : 2020/10/30
-# @Desc  :
+# @Desc  : 读取某个网站的listpage_url,打乱顺序，插入redis队列
 
 
 import pymysql
