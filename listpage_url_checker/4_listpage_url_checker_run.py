@@ -9,6 +9,7 @@
 import os
 import configparser
 import logging
+from logging.handlers import RotatingFileHandler
 import redis
 import json
 import hashlib
@@ -26,17 +27,22 @@ import pymysql
 
 # 日志记录
 logger = logging.getLogger()
-logger.setLevel('DEBUG')
+logger.setLevel('INFO')
+
 BASIC_FORMAT = "%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s"
 DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 formatter = logging.Formatter(BASIC_FORMAT, DATE_FORMAT)
-chlr = logging.StreamHandler()  # 输出到控制台的handler
-chlr.setFormatter(formatter)
-chlr.setLevel('ERROR')  # 也可以不设置，不设置就默认用logger的level, ERROR
-fhlr = logging.FileHandler('./log/listpage_url_checker_run.log')  # 输出到文件的handler
-fhlr.setFormatter(formatter)
-logger.addHandler(chlr)
-logger.addHandler(fhlr)
+
+logFile = './log/4_listpage_url_checker_run.log'
+fl_handler = RotatingFileHandler(logFile, mode='a', maxBytes=5*1024*1024, backupCount=2, encoding='utf-8', delay=0)
+fl_handler.setFormatter(formatter)
+
+stream = logging.StreamHandler()  # 输出到控制台的handler
+stream.setFormatter(formatter)
+stream.setLevel('INFO')
+
+logger.addHandler(fl_handler)
+logger.addHandler(stream)
 
 # 忽略mysql插入时主键重复的警告
 warnings.filterwarnings('ignore')
@@ -128,7 +134,7 @@ def parse_html_to_database(text_input):
         return node_md5, len(node_md5_source)
 
     except Exception as e:
-        logging.ERROR(traceback.format_exc())
+        logger.error(traceback.format_exc())
         return '', 0
 
 
@@ -152,7 +158,8 @@ async def get_response(semaphore, url, id, last_check_node_md5):
                 async with session.get(url, headers=headers) as response:
                     # errors='ignore', 解决'gb2312' codec can't decode
                     text = await response.text(errors='ignore')
-                    print(response.get_encoding(), url)
+                    # print(response.get_encoding(), url)
+                    logger.info(response.get_encoding() + url)
                     # 有些网站识别编码错误，如https://www.bannedbook.org/，识别是Windows-1254
                     if 'Windows' in response.get_encoding():
                         text = await response.text(errors='ignore', encoding='utf-8')
@@ -161,7 +168,7 @@ async def get_response(semaphore, url, id, last_check_node_md5):
 
     except Exception as e:
         if len(str(e)) > 0:
-            logging.error(str(e)+'  '+str(id))
+            logger.error(str(e)+'  '+str(id))
         return id, last_check_node_md5, '', 0
 
 
@@ -235,7 +242,7 @@ def create_task(loop, semaphore, database_config):
 
     except Exception as e:
         if len(str(e)) > 0:
-            logging.error(str(e))
+            logger.error(str(e))
         return 0
 
 
@@ -244,9 +251,9 @@ def main():
     database_config = {'host': '192.168.1.118', 'port': 3306, 'user': 'root', 'passwd': 'poms@db', 'db': 'datasource'}
 
     # 异步请求
-    # event_loop = asyncio.get_event_loop()
-    event_loop = asyncio.ProactorEventLoop()
-    asyncio.set_event_loop(event_loop)
+    event_loop = asyncio.get_event_loop()
+    # event_loop = asyncio.ProactorEventLoop()
+    # asyncio.set_event_loop(event_loop)
     semaphore = asyncio.Semaphore(50)  # 限制并发量为500
     while True:
         try:
@@ -255,7 +262,7 @@ def main():
             if target_count < 1:
                 break
         except Exception as e:
-            logging.error(str(e))
+            logger.error(str(e))
             # break
     # event_loop.close()
 

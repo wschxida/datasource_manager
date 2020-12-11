@@ -9,6 +9,7 @@ import requests
 import pymysql
 from lxml import etree
 import sys
+
 sys.path.append('..')
 import lib.common as common
 
@@ -45,7 +46,8 @@ def query_mysql(config_params, query_sql):
     return results
 
 
-def parse_html_to_database(database_config, url, column_extraction_deep, domain_code_source, website_no, Is_Need_VPN, text):
+def parse_html_to_database(database_config, url, column_extraction_deep, domain_code_source, website_no, Is_Need_VPN,
+                           text):
     try:
         root = etree.HTML(text, parser=etree.HTMLParser(encoding='utf-8'))
         column_extraction_deep = 0
@@ -80,7 +82,6 @@ def parse_html_to_database(database_config, url, column_extraction_deep, domain_
         pass
 
 
-
 database_config = {'host': '192.168.1.118', 'port': 3306, 'user': 'root', 'passwd': 'poms@db', 'db': 'datasource'}
 url = 'http://www.cwrank.com/main/rank.php?geo=overseas&page=9'
 proxies = {
@@ -91,4 +92,3 @@ response = requests.get(url, proxies=proxies)
 response.encoding = 'UTF-8'
 text = response.text
 parse_html_to_database(database_config, url, 0, '', 'S18605', 1, text)
-

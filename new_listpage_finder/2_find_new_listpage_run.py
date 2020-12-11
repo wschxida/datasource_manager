@@ -9,6 +9,7 @@
 import os
 import configparser
 import logging
+from logging.handlers import RotatingFileHandler
 import redis
 import json
 import hashlib
@@ -27,16 +28,21 @@ from functools import wraps
 # 日志记录
 logger = logging.getLogger()
 logger.setLevel('DEBUG')
+
 BASIC_FORMAT = "%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s"
 DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 formatter = logging.Formatter(BASIC_FORMAT, DATE_FORMAT)
-chlr = logging.StreamHandler()  # 输出到控制台的handler
-chlr.setFormatter(formatter)
-chlr.setLevel('ERROR')  # 也可以不设置，不设置就默认用logger的level, ERROR
-fhlr = logging.FileHandler('./log/listpage_url_pusher.log', encoding='utf-8')  # 输出到文件的handler
-fhlr.setFormatter(formatter)
-logger.addHandler(chlr)
-logger.addHandler(fhlr)
+
+logFile = './log/2_find_new_listpage_run.log'
+fl_handler = RotatingFileHandler(logFile, mode='a', maxBytes=5*1024*1024, backupCount=2, encoding='utf-8', delay=0)
+fl_handler.setFormatter(formatter)
+
+stream = logging.StreamHandler()  # 输出到控制台的handler
+stream.setFormatter(formatter)
+stream.setLevel('INFO')
+
+logger.addHandler(fl_handler)
+logger.addHandler(stream)
 
 # 忽略mysql插入时主键重复的警告
 warnings.filterwarnings('ignore')

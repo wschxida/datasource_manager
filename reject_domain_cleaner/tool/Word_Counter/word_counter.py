@@ -39,10 +39,11 @@ print(word_counts_top100)  # 输出检查
 # 写入结果
 print("--写入结果--")
 fn = open('result.txt', 'w', encoding='UTF-8')  # 打开文件
-for i in word_counts_top100:
-    if i[1] > 100:
-        fn.write(i[0])
-        fn.write('\n')
+fn.write(str(word_counts_top100))
+# for i in word_counts_top100:
+#     if i[1] > 1000:
+#         fn.write(i[0])
+#         fn.write('\n')
 
 fn.close()  # 关闭文件
 

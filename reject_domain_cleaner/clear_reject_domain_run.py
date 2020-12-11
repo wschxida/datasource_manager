@@ -11,20 +11,27 @@ import pymysql
 import os
 import configparser
 import logging
+from logging.handlers import RotatingFileHandler
 
 
+# 日志记录
 logger = logging.getLogger()
 logger.setLevel('DEBUG')
+
 BASIC_FORMAT = "%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s"
 DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 formatter = logging.Formatter(BASIC_FORMAT, DATE_FORMAT)
-chlr = logging.StreamHandler()  # 输出到控制台的handler
-chlr.setFormatter(formatter)
-chlr.setLevel('INFO')  # 也可以不设置，不设置就默认用logger的level
-fhlr = logging.FileHandler('./log/reject_domain_cleaner.log')  # 输出到文件的handler
-fhlr.setFormatter(formatter)
-logger.addHandler(chlr)
-logger.addHandler(fhlr)
+
+logFile = './log/clear_reject_domain_run.log'
+fl_handler = RotatingFileHandler(logFile, mode='a', maxBytes=5*1024*1024, backupCount=2, encoding='utf-8', delay=0)
+fl_handler.setFormatter(formatter)
+
+stream = logging.StreamHandler()  # 输出到控制台的handler
+stream.setFormatter(formatter)
+stream.setLevel('INFO')
+
+logger.addHandler(fl_handler)
+logger.addHandler(stream)
 
 conf = configparser.RawConfigParser()
 conf.read('config.ini', encoding="utf-8")
@@ -66,7 +73,7 @@ def query_mysql(config_params, query_sql):
         cur = conn.cursor()
         cur.execute(query_sql)  # 执行sql语句
         results = cur.fetchall()  # 获取查询的所有记录
-        if 'delete' in query_sql:
+        if 'delete' in query_sql or 'update' in query_sql:
             results = cur.rowcount
         conn.close()  # 关闭连接
     except Exception as e:
