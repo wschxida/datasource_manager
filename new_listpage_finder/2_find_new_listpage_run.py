@@ -113,7 +113,7 @@ def parse_html_to_database(database_config, url, column_extraction_deep, domain_
             # 垃圾词、垃圾域名过滤
             level_score, score_detail = common.is_need_filter(title, listpage_url, False)
             # print(level_score, score_detail)
-            logging.info(str(level_score) + '=' + score_detail)
+            logger.info(str(level_score) + '=' + score_detail)
 
             # 入库分值，新闻要大于等于20，论坛要大于等于10
             valid_score = 20
@@ -132,7 +132,7 @@ def parse_html_to_database(database_config, url, column_extraction_deep, domain_
         return True
     except Exception as e:
         # print(e)
-        logging.ERROR(traceback.format_exc())
+        logger.error(traceback.format_exc())
 
 
 async def get_response(database_config, semaphore, url, column_extraction_deep=1, domain_code_source=None, website_no=None, Is_Need_VPN=0):
@@ -180,7 +180,7 @@ async def get_response(database_config, semaphore, url, column_extraction_deep=1
 
     except Exception as e:
         if len(str(e)) > 0:
-            logging.error(str(e))
+            logger.error(str(e))
         return None
 
 
@@ -219,7 +219,7 @@ def create_task(loop, semaphore, database_config):
 
     except Exception as e:
         if len(str(e)) > 0:
-            logging.error(str(e))
+            logger.error(str(e))
         return None
 
 
@@ -249,7 +249,7 @@ def main():
                 # break
                 time.sleep(10)
         except Exception as e:
-            logging.error(str(e))
+            logger.error(str(e))
             # break
     event_loop.close()
 
@@ -258,4 +258,4 @@ if __name__ == '__main__':
     try:
         main()
     except Exception as e:
-        logging.ERROR(traceback.format_exc())
+        logger.error(traceback.format_exc())

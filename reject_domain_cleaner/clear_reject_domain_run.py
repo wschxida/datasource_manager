@@ -12,6 +12,9 @@ import os
 import configparser
 import logging
 from logging.handlers import RotatingFileHandler
+import sys
+sys.path.append('../new_listpage_finder')
+from new_listpage_finder.lib import common
 
 
 # 日志记录
@@ -78,7 +81,7 @@ def query_mysql(config_params, query_sql):
         conn.close()  # 关闭连接
     except Exception as e:
         # print(e)
-        logging.ERROR(str(e))
+        logger.error(str(e))
 
     return results
 
@@ -101,21 +104,23 @@ def main():
     reject_domain_list = get_reject_domain_list(reject_domain_file)
 
     # 执行删除操作
-    for domain in reject_domain_list:
+    for str_domain in reject_domain_list:
+        logger.info(str_domain)
+        domain = common.get_domain_code(str_domain)
         sql = f'''delete from {table} where domain_code='{domain}';'''
         result = query_mysql(database_config, sql)
         if result > 0:
-            logging.info(sql)
-            logging.info('delete count: ' + str(result))
+            logger.info(sql)
+            logger.info('delete count: ' + str(result))
         # sql = f'''delete from {table} where host_code='{domain}';'''
         # result = query_mysql(database_config, sql)
         # if result > 0:
-        #     logging.info(sql)
-        #     logging.info('delete count: ' + str(result))
+        #     logger.info(sql)
+        #     logger.info('delete count: ' + str(result))
 
 
 if __name__ == '__main__':
     try:
         main()
     except Exception as e:
-        logging.ERROR(str(e))
+        logger.error(str(e))

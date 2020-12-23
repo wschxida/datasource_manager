@@ -107,7 +107,7 @@ def query_mysql(config_params, query_sql):
         conn.close()  # 关闭连接
     except Exception as e:
         # print(e)
-        logging.ERROR(str(e))
+        logger.error(str(e))
 
     return results
 
@@ -144,8 +144,8 @@ def main():
         # print(url_list)
         push_task_to_redis(website_no, url_list)
 
-        logging.info(website_no)
-        logging.info('select count: ' + str(len(url_list)))
+        logger.info(website_no)
+        logger.info('select count: ' + str(len(url_list)))
 
 
 if __name__ == '__main__':
@@ -153,4 +153,4 @@ if __name__ == '__main__':
         main()
     except Exception as e:
         # print(e)
-        logging.ERROR(traceback.format_exc())
+        logger.error(traceback.format_exc())
