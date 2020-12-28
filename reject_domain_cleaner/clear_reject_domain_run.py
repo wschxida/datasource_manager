@@ -8,14 +8,12 @@
 
 
 import pymysql
-import os
 import configparser
 import logging
 from logging.handlers import RotatingFileHandler
 import sys
 sys.path.append('../new_listpage_finder')
-from new_listpage_finder.lib import common
-
+from lib import common
 
 # 日志记录
 logger = logging.getLogger()

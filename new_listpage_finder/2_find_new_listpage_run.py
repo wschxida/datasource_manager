@@ -6,15 +6,10 @@
 # @Desc  :
 
 
-import os
 import configparser
 import logging
 from logging.handlers import RotatingFileHandler
-import redis
-import json
-import hashlib
 import traceback
-import random
 import lib.common as common
 import time
 import asyncio
