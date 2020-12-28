@@ -6,7 +6,7 @@
 # @Desc  :
 
 import time
-import lib.common as common
+import model.lib.common as common
 
 
 def do_some_work(x):

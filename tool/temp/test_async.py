@@ -8,8 +8,7 @@
 import asyncio
 import time
 from concurrent.futures import ThreadPoolExecutor
-from asgiref.sync import sync_to_async
-import lib.common as common
+import model.lib.common as common
 
 
 _executor = ThreadPoolExecutor()

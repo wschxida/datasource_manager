@@ -6,8 +6,8 @@
 # @Desc  :
 
 import sys
-sys.path.append('../../column_link')
-import lib.common as common
+sys.path.append('../../model/column_link')
+import model.lib.common as common
 
 
 def main(website_no, start, end):

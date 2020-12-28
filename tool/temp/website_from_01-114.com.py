@@ -9,8 +9,8 @@ import requests
 import pymysql
 from lxml import etree
 import sys
-sys.path.append('../../column_link')
-import lib.common as common
+sys.path.append('../../model/column_link')
+import model.lib.common as common
 
 
 def query_mysql(config_params, query_sql):

@@ -5,10 +5,9 @@
 # @Date  : 2020/4/23
 # @Desc  :将相关数据读取批量导入到mysql数据库
 
-import hashlib
 import pymysql
 from elasticsearch import Elasticsearch
-from lib import common
+from model.lib import common
 
 
 def input_from_es():

@@ -6,11 +6,10 @@
 # @Desc  :
 
 
-from datetime import datetime
 from elasticsearch import Elasticsearch
 import hashlib
 import pymysql
-import lib.common as common
+import model.lib.common as common
 
 
 def query_mysql(config_params, query_sql):

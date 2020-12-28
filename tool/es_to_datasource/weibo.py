@@ -6,7 +6,7 @@
 # @Desc  :
 
 
-import lib.common as common
+import model.lib.common as common
 import warnings
 
 # 忽略mysql插入时主键重复的警告

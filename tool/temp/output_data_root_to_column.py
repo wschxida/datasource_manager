@@ -6,7 +6,7 @@
 # @Desc  :
 
 
-import lib.common as common
+import model.lib.common as common
 
 
 def main():
