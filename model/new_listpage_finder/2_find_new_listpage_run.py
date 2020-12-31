@@ -231,8 +231,8 @@ def main():
     database_config = {'host': host, 'port': int(port), 'user': user, 'passwd': passwd, 'db': db}
 
     # 异步请求
-    # event_loop = asyncio.get_event_loop()
-    event_loop = asyncio.ProactorEventLoop()
+    event_loop = asyncio.get_event_loop()
+    # event_loop = asyncio.ProactorEventLoop()
     asyncio.set_event_loop(event_loop)
     semaphore = asyncio.Semaphore(200)  # 限制并发量为500
 
