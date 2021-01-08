@@ -49,6 +49,13 @@ def get_token(md5str):
     return token
 
 
+def get_url_remove_http(url):
+    url = url.replace('http://', '')
+    url = url.replace('https://', '')
+    url = url.rstrip('/')
+    return url
+
+
 def query_mysql(config_params, query_sql):
     """
     执行SQL
