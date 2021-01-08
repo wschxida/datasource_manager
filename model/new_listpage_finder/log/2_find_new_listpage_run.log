@@ -1,0 +1,8 @@
+2020-12-30 15:17:42 - 2_find_new_listpage_run.py[line:256] - ERROR: Traceback (most recent call last):
+  File "/home/ubuntu/python_project/datasource_manager/model/new_listpage_finder/2_find_new_listpage_run.py", line 254, in <module>
+    main()
+  File "/home/ubuntu/python_project/datasource_manager/model/new_listpage_finder/2_find_new_listpage_run.py", line 235, in main
+    event_loop = asyncio.ProactorEventLoop()
+AttributeError: module 'asyncio' has no attribute 'ProactorEventLoop'
+
+2020-12-30 15:17:55 - selector_events.py[line:53] - DEBUG: Using selector: EpollSelector

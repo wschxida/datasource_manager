@@ -1,0 +1,9 @@
+2021-01-08 16:28:10 - clear_reject_domain_run.py[line:106] - INFO: yc.ifeng.com
+2021-01-08 16:28:35 - clear_reject_domain_run.py[line:111] - INFO: delete from column_link where domain_code='ifeng.com';
+2021-01-08 16:28:35 - clear_reject_domain_run.py[line:112] - INFO: delete count: 123207
+2021-01-08 16:28:35 - clear_reject_domain_run.py[line:106] - INFO: coatingol.com
+2021-01-08 16:28:35 - clear_reject_domain_run.py[line:111] - INFO: delete from column_link where domain_code='coatingol.com';
+2021-01-08 16:28:35 - clear_reject_domain_run.py[line:112] - INFO: delete count: 938
+2021-01-08 16:28:35 - clear_reject_domain_run.py[line:106] - INFO: haguan.com
+2021-01-08 16:28:35 - clear_reject_domain_run.py[line:111] - INFO: delete from column_link where domain_code='haguan.com';
+2021-01-08 16:28:35 - clear_reject_domain_run.py[line:112] - INFO: delete count: 787

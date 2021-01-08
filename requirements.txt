@@ -1,0 +1,16 @@
+requests
+aiohttp
+beautifulsoup4
+elasticsearch
+jieba
+lxml
+matplotlib
+numpy
+parsedatetime
+Pillow
+pymysql
+redis
+scrapy
+selenium
+tldextract
+wordcloud
