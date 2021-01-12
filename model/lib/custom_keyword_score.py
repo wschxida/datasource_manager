@@ -3,7 +3,7 @@
 # @File  : custom_keyword_score.py
 # @Author: Cedar
 # @Date  : 2020/4/27
-# @Desc  : 自定义垃圾词汇
+# @Desc  : 自定义词汇分数
 
 
 custom_title_keyword_score_dict = {
