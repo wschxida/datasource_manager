@@ -179,7 +179,7 @@ async def get_response(database_config, semaphore, url, column_extraction_deep=1
 
 @execute_time
 def create_task(loop, database_config):
-    semaphore = asyncio.Semaphore(100)  # 限制并发量为500
+    semaphore = asyncio.Semaphore(50)  # 限制并发量为500
     try:
         tasks = []
         # 查询待采集目标
