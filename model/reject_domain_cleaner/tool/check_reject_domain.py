@@ -135,7 +135,7 @@ def run():
                         values('{url}', '{cur_url}', '{title}', '{domain_code_req}', '{domain_code}');"""
         query_mysql(database_config, insert_sql)
 
-    browser.close()
+    browser.quit()
 
 
 if __name__ == '__main__':
