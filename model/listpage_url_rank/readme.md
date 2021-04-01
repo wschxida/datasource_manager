@@ -53,4 +53,4 @@ e_reset_listpage_url_in_center
 打开 run.py ，编辑 need_init，website_no_input，website_no_output 三个参数，
 need_init 是指是否需要初始化，即重新导detail和listpage_url到118，一般一周运行一次即可。
 website_no_input 是需要调整的网站编号列表，如 搜狐号API_列表_1 有8个一样的网站
-website_no_output 是调整后的5个等级的网站编号列表
+website_no_output 是调整后的5个等级的网站编号列表。
