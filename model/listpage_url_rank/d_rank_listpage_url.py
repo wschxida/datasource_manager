@@ -73,15 +73,15 @@ def main(website_no_input, website_no_output):
     # print(sql_C)
     # print(sql_D)
     # print(sql_E)
-    # query_mysql(config_118, sql_A)
-    # query_mysql(config_118, sql_B)
-    # query_mysql(config_118, sql_C)
-    # query_mysql(config_118, sql_D)
-    # query_mysql(config_118, sql_E)
+    query_mysql(config_118, sql_A)
+    query_mysql(config_118, sql_B)
+    query_mysql(config_118, sql_C)
+    query_mysql(config_118, sql_D)
+    query_mysql(config_118, sql_E)
 
 
 if __name__ == '__main__':
     # 搜狐号
-    website_no_input = ('S15347', 'S18604', 'S18603', 'S17969', 'S18309', 'S17968', 'S15326', 'S17967')
-    website_no_output = ('S17967', 'S15347', 'S15326', 'S17968', 'S17969')
+    website_no_input = ('S15324','S16848','S16849','S16850','S16851','S16852','S16853','S16854','S16855','S16856','S16857','S16880','S16881','S16882','S16883','S16884','S16885','S16886','S16887','S16888','S16889','S16897','S16898','S16899','S16900','S16901','S16902','S16903','S16904','S16905','S16906','S16907','S16908','S16909','S16910','S16911','S16912','S17041','S17370','S17471','S17472','S17473','S18548','S18549','S18550','S18551','S18552','S18553','S18570','S18572','S18573','S18574','S18575','S18576','S18577','S18578','S18579','S18580','S18581','S18582','S18583','S18584','S18585','S18586','S18587','S18588','S18589','S18590','S18591','S18592','S18593','S18594','S18595','S18596','S18597','S18598','S18599','S18600','S18601','S18602')
+    website_no_output = ('S16897','S16898','S16899','S16900','S16901')
     main(website_no_input, website_no_output)
