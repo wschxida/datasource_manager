@@ -15,6 +15,7 @@ import sys
 sys.path.append('../new_listpage_finder')
 from model.lib import common
 
+
 # 日志记录
 logger = logging.getLogger()
 logger.setLevel('DEBUG')
@@ -24,7 +25,7 @@ DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 formatter = logging.Formatter(BASIC_FORMAT, DATE_FORMAT)
 
 logFile = './log/clear_reject_domain_run.log'
-fl_handler = RotatingFileHandler(logFile, mode='a', maxBytes=5*1024*1024, backupCount=2, encoding='utf-8', delay=0)
+fl_handler = RotatingFileHandler(logFile, mode='a', maxBytes=5 * 1024 * 1024, backupCount=2, encoding='utf-8', delay=0)
 fl_handler.setFormatter(formatter)
 
 stream = logging.StreamHandler()  # 输出到控制台的handler
@@ -49,41 +50,6 @@ def get_reject_domain_list(file_name):
     return rd_list
 
 
-def query_mysql(config_params, query_sql):
-    """
-    执行SQL
-    :param config_params:
-    :param query_sql:
-    :return:
-    """
-    # 连接mysql
-    config = {
-        'host': config_params["host"],
-        'port': config_params["port"],
-        'user': config_params["user"],
-        'passwd': config_params["passwd"],
-        'db': config_params["db"],
-        'charset': 'utf8mb4',
-        'cursorclass': pymysql.cursors.DictCursor
-    }
-    results = None
-    try:
-        conn = pymysql.connect(**config)
-        conn.autocommit(1)
-        # 使用cursor()方法获取操作游标
-        cur = conn.cursor()
-        cur.execute(query_sql)  # 执行sql语句
-        results = cur.fetchall()  # 获取查询的所有记录
-        if 'delete' in query_sql or 'update' in query_sql:
-            results = cur.rowcount
-        conn.close()  # 关闭连接
-    except Exception as e:
-        # print(e)
-        logger.error(str(e))
-
-    return results
-
-
 def main():
     # 导入参数文件
     host = conf.get("database", "host")
@@ -106,7 +72,7 @@ def main():
         logger.info(str_domain)
         domain = common.get_domain_code(str_domain)
         sql = f'''delete from {table} where domain_code='{domain}';'''
-        result = query_mysql(database_config, sql)
+        result = common.query_mysql(database_config, sql)
         if result > 0:
             logger.info(sql)
             logger.info('delete count: ' + str(result))
