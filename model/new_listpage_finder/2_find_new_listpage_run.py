@@ -91,7 +91,7 @@ def parse_html_to_database(database_config, url, column_extraction_deep, domain_
             if domain_code_source != domain_code:
                 continue
 
-            # 计算a节点占全部a节点百分比，如果总节点小于50就去前50%的节点；如果在50和200之前，就取前30%；大于200，就取前20%
+            # 计算a节点占全部a节点百分比，如果总节点小于50就去前50%的节点；如果在50和200之前，就取前30%；大于200，就取前100个
             len_items = len(items)
             node_percent = num/len(items)
             # print(num, 'percent:{:.0%}'.format(node_percent), title, listpage_url)
@@ -102,7 +102,7 @@ def parse_html_to_database(database_config, url, column_extraction_deep, domain_
                 if node_percent > 0.3:
                     continue
             if len_items > 200:
-                if node_percent > 0.2:
+                if num > 100:
                     continue
 
             # 垃圾词、垃圾域名过滤
